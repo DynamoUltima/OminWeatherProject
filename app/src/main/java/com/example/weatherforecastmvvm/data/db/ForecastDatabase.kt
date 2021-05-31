@@ -4,17 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.weatherforecastmvvm.data.LocalDateConverter
 import com.example.weatherforecastmvvm.data.db.entity.CurrentWeatherEntry
 import com.example.weatherforecastmvvm.data.db.entity.WeatherLocation
+import com.example.weatherforecastmvvm.data.network.response.FutureWeatherEntry
 import okhttp3.internal.Internal.instance
 
 
 @Database(
-    entities = [CurrentWeatherEntry::class,WeatherLocation::class],
+    entities = [CurrentWeatherEntry::class,FutureWeatherEntry::class,WeatherLocation::class],
     version = 1
 )
+@TypeConverters(LocalDateConverter::class)
  abstract class ForecastDatabase :RoomDatabase(){
     abstract fun CurrrentWeatherDao():CurrrentWeatherDao
+    abstract fun futureWeatherDao():FutureWeatherDao
     abstract fun weatherLocationDao():WeatherLocationDao
 
     companion object{
